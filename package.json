@@ -1,0 +1,35 @@
+{
+  "name": "layui-formSelects",
+  "version": "1.0.0",
+  "description": "<p align=center>\r   <a href=\"javascript:;\">\r     <img src=\"docs/public/logo.png\" alt=\"formSelects\" width=\"520\">\r   </a>\r </p>",
+  "main": "src/formSelects-v4.js",
+  "directories": {
+    "doc": "docs",
+    "example": "example"
+  },
+  "scripts": {
+    "build": "babel src --presets babel-preset-es2015 --out-dir dist",
+    "prepublish": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/clzdl/layui-formSelects.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/clzdl/layui-formSelects/issues"
+  },
+  "homepage": "https://github.com/clzdl/layui-formSelects#readme",
+  "devDependencies": {
+    "autoprefixer": "^7.2.5",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-component": "^1.1.0",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-cli": "^6.0.0"
+  }
+}
