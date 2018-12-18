@@ -159,7 +159,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 			showCount: 0,
 			isCreate: false,
 			placeholder: TIPS,
-			clearInput: false
+			clearInput: false,
+			onlyLeafSel: true ///多选时，仅叶子节点可选
 		};
 		this.select = null;
 		this.values = [];
@@ -682,7 +683,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 		var pid = item[FORM_TEAM_PID];
 		pid ? pid = JSON.parse(pid) : pid = [-1];
 		var attr = pid[0] == -1 ? '' : 'tree-id="' + pid.join('-') + '" tree-folder="' + !!item['XM_TREE_FOLDER'] + '"';
-		return '<dd lay-value="' + item.value + '" class="' + (item.disabled ? DISABLED : '') + ' ' + (clz ? clz : '') + '" ' + attr + '>\n\t\t\t\t\t<div class="xm-unselect xm-form-checkbox ' + (item.disabled ? DISABLED : '') + '"  style="margin-left: ' + (pid.length - 1) * 30 + 'px">\n\t\t\t\t\t\t<i class="' + CHECKBOX_YES + '"></i>\n\t\t\t\t\t\t<span name="' + name + '">' + template + '</span>\n\t\t\t\t\t</div>\n\t\t\t\t</dd>';
+		var checkAttr = data[id].config.onlyLeafSel ? item['XM_TREE_FOLDER'] ? "" : "xm-form-checkbox" : "xm-form-checkbox";
+		return '<dd lay-value="' + item.value + '" class="' + (item.disabled ? DISABLED : '') + ' ' + (clz ? clz : '') + '" ' + attr + '>\n\t\t\t\t\t<div class="xm-unselect ' + checkAttr + ' ' + (item.disabled ? DISABLED : '') + '"  style="margin-left: ' + (pid.length - 1) * 30 + 'px">\n\t\t\t\t\t\t<i class="' + CHECKBOX_YES + '"></i>\n\t\t\t\t\t\t<span name="' + name + '">' + template + '</span>\n\t\t\t\t\t</div>\n\t\t\t\t</dd>';
 	};
 
 	Common.prototype.createQuickBtn = function (obj, right) {
@@ -1611,7 +1613,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 				config.header['Content-Type'] = 'application/json; charset=UTF-8';
 				config.dataType = 'json';
 			}
-			id ? (ajaxs[id] = $.extend(true, {}, ajaxs[id] || ajax, config), !common.check(id) && this.render(id), data[id] && config.direction && (data[id].config.direction = config.direction), data[id] && config.clearInput && (data[id].config.clearInput = true), config.searchUrl && data[id] && common.triggerSearch($('.' + PNAME + ' dl[xid="' + id + '"]').parents('.' + FORM_SELECT), true)) : ($.extend(true, ajax, config), $.each(ajaxs, function (key, item) {
+			id ? (ajaxs[id] = $.extend(true, {}, ajaxs[id] || ajax, config), !common.check(id) && this.render(id), data[id] && config.direction && (data[id].config.direction = config.direction), data[id] && config.clearInput && (data[id].config.clearInput = true), data[id] && config.onlyLeafSel && (data[id].config.onlyLeafSel = config.onlyLeafSel), config.searchUrl && data[id] && common.triggerSearch($('.' + PNAME + ' dl[xid="' + id + '"]').parents('.' + FORM_SELECT), true)) : ($.extend(true, ajax, config), $.each(ajaxs, function (key, item) {
 				$.extend(true, item, config);
 			}));
 		}
